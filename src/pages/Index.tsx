@@ -4,6 +4,7 @@ import { AddTaskForm } from '@/components/AddTaskForm';
 import { TaskList } from '@/components/TaskList';
 import { FilterControls } from '@/components/FilterControls';
 import { AppHeader } from '@/components/AppHeader';
+import { v4 as uuidv4 } from 'uuid';
 import { TaskInterface, CategoryInterface } from '@/types/task';
 import { toast } from '@/components/ui/use-toast';
 
@@ -85,7 +86,7 @@ const Index = () => {
     <div className="min-h-screen flex flex-col japanese-paper">
       <AppHeader />
       
-      <main className="flex-1 container max-w-4xl py-10 px-6 mx-0">
+      <main className="flex-1 container max-w-xl py-10 px-6 mx-0">
         <h1 className="text-2xl font-jp font-medium mb-6 brush-stroke-bg animate-float">Today's Tasks</h1>
         
         <AddTaskForm onAddTask={handleAddTask} categories={categories} />
@@ -113,4 +114,3 @@ const Index = () => {
 };
 
 export default Index;
-
