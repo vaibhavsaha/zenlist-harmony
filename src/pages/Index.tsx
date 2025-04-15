@@ -5,7 +5,6 @@ import { TaskList } from '@/components/TaskList';
 import { FilterControls } from '@/components/FilterControls';
 import { AppHeader } from '@/components/AppHeader';
 import { TaskInterface, CategoryInterface } from '@/types/task';
-import { v4 as uuidv4 } from 'uuid';
 import { toast } from '@/components/ui/use-toast';
 
 // Initial categories data
@@ -43,6 +42,10 @@ const initialTasks: TaskInterface[] = [
   },
 ];
 
+const generateId = () => {
+  return Math.random().toString(36).substr(2, 9);
+};
+
 const Index = () => {
   const [tasks, setTasks] = useState<TaskInterface[]>(() => {
     // Load tasks from localStorage or use initial data
@@ -61,7 +64,7 @@ const Index = () => {
   const handleAddTask = (taskData: Omit<TaskInterface, 'id'>) => {
     const newTask: TaskInterface = {
       ...taskData,
-      id: uuidv4(),
+      id: generateId(),
     };
     
     setTasks(prevTasks => [newTask, ...prevTasks]);
@@ -79,11 +82,11 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col japanese-paper">
+    <div className="min-h-screen flex flex-col japanese-paper zen-bg">
       <AppHeader />
       
-      <main className="flex-1 container max-w-2xl py-8 px-4 sm:px-6">
-        <h1 className="text-2xl font-medium mb-6">Today's Tasks</h1>
+      <main className="flex-1 container max-w-3xl py-10 px-4 sm:px-6 mx-auto">
+        <h1 className="text-2xl font-jp font-medium mb-6 brush-stroke-bg animate-float">Today's Tasks</h1>
         
         <AddTaskForm onAddTask={handleAddTask} categories={categories} />
         
@@ -100,8 +103,8 @@ const Index = () => {
         />
         
         {tasks.length === 0 && (
-          <div className="text-center py-12">
-            <p className="text-muted-foreground">Your task list is empty. Add a new task to get started.</p>
+          <div className="text-center py-16">
+            <p className="text-muted-foreground/80 italic">Your task list is empty. Add a new task to get started.</p>
           </div>
         )}
       </main>

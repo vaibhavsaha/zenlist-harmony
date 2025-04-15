@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Check, Calendar, Trash2, GripVertical } from 'lucide-react';
+import { Check, Calendar, Trash2, GripVertical, Feather } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { CategoryBadge } from './CategoryBadge';
 import { TaskInterface } from '@/types/task';
@@ -33,10 +33,12 @@ export function TaskItem({ task, onComplete, onDelete, isDragging, dragHandlePro
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, scale: 0.95 }}
+      whileHover={{ scale: 1.01 }}
       whileTap={{ scale: 0.98 }}
+      transition={{ duration: 0.2, ease: "easeInOut" }}
       className={cn(
-        "task-card relative flex items-start mb-3 cursor-default",
-        task.completed && "opacity-60",
+        "task-card relative flex items-start mb-4 cursor-default",
+        task.completed && "opacity-70",
         isDragging && "shadow-md border-primary/20"
       )}
       onMouseEnter={() => setIsHovered(true)}
@@ -66,25 +68,28 @@ export function TaskItem({ task, onComplete, onDelete, isDragging, dragHandlePro
         </button>
 
         <div className="flex-1">
-          <p className={cn(
-            "font-medium text-base mb-1 ink-transition",
+          <h3 className={cn(
+            "font-medium text-base mb-1 ink-transition tracking-wide",
             task.completed && "line-through text-muted-foreground/70"
           )}>
             {task.title}
-          </p>
+          </h3>
           
           {task.description && (
             <p className={cn(
-              "text-sm text-muted-foreground ink-transition",
+              "text-sm text-muted-foreground ink-transition leading-relaxed",
               task.completed && "line-through text-muted-foreground/50"
             )}>
               {task.description}
             </p>
           )}
           
-          <div className="flex items-center mt-2 space-x-2">
+          <div className="flex items-center mt-3 space-x-2">
             {task.category && (
-              <CategoryBadge category={task.category} />
+              <div className="flex items-center">
+                <Feather size={12} className="mr-1 text-muted-foreground/70" />
+                <CategoryBadge category={task.category} />
+              </div>
             )}
             
             {task.dueDate && (

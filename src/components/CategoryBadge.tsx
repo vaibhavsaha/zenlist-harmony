@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { cn } from '@/lib/utils';
+import { motion } from 'framer-motion';
 
 interface CategoryBadgeProps {
   category: {
@@ -14,11 +15,11 @@ interface CategoryBadgeProps {
 
 export function CategoryBadge({ category, minimal = false, className }: CategoryBadgeProps) {
   const colorMap: Record<string, string> = {
-    indigo: 'bg-indigo',
-    vermilion: 'bg-vermilion',
-    moss: 'bg-moss',
-    gray: 'bg-gray-400',
-    default: 'bg-muted',
+    indigo: 'bg-indigo/90',
+    vermilion: 'bg-vermilion/90',
+    moss: 'bg-moss/90',
+    gray: 'bg-gray-400/90',
+    default: 'bg-muted/90',
   };
 
   const bgColor = colorMap[category.color] || colorMap.default;
@@ -33,14 +34,16 @@ export function CategoryBadge({ category, minimal = false, className }: Category
   }
 
   return (
-    <div 
+    <motion.div 
+      initial={{ opacity: 0, scale: 0.9 }}
+      animate={{ opacity: 1, scale: 1 }}
       className={cn(
-        "px-2 py-0.5 text-xs rounded-full flex items-center animate-brush-stroke", 
+        "px-2 py-0.5 text-xs rounded-full flex items-center", 
         bgColor, 
         className
       )}
     >
       <span className="text-white">{category.name}</span>
-    </div>
+    </motion.div>
   );
 }

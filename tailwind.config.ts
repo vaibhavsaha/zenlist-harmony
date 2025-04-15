@@ -121,8 +121,15 @@ export default {
 				'float': 'float 6s ease-in-out infinite'
 			},
 			fontFamily: {
-				sans: ['var(--font-meiryo)', 'Meiryo', 'Hiragino Sans', 'sans-serif'],
-				jp: ['var(--font-meiryo)', 'Meiryo', 'Hiragino Sans', 'sans-serif'],
+				sans: ['Inter', 'sans-serif'],
+				jp: ['Zen Kaku Gothic New', 'sans-serif'],
+			},
+			letterSpacing: {
+				wide: '0.01em',
+				wider: '0.02em',
+			},
+			lineHeight: {
+				relaxed: '1.75',
 			}
 		}
 	},
