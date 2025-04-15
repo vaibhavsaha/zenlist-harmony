@@ -5,13 +5,7 @@ import { Button } from '@/components/ui/button';
 import { useTheme } from '@/hooks/useTheme';
 import { cn } from '@/lib/utils';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+import { NavLink, useLocation } from 'react-router-dom';
 
 interface NavItem {
   label: string;
@@ -27,7 +21,6 @@ const navItems: NavItem[] = [
 export function AppHeader() {
   const { theme, setTheme } = useTheme();
   const [menuOpen, setMenuOpen] = useState(false);
-  const navigate = useNavigate();
   const location = useLocation();
 
   const toggleTheme = () => {
@@ -36,12 +29,6 @@ export function AppHeader() {
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
-  };
-
-  const handleNavigation = (href: string) => {
-    console.log('Navigating to:', href);
-    navigate(href);
-    setMenuOpen(false);
   };
 
   // Close mobile menu when window is resized to desktop size
@@ -67,18 +54,17 @@ export function AppHeader() {
       {/* Desktop navigation */}
       <nav className="hidden md:flex items-center space-x-6">
         {navItems.map((item) => (
-          <Button
+          <NavLink
             key={item.label}
-            onClick={() => handleNavigation(item.href)}
-            className={cn(
-              "text-muted-foreground hover:text-foreground transition-colors",
-              location.pathname === item.href && "text-foreground font-medium"
+            to={item.href}
+            className={({ isActive }) => cn(
+              "px-4 py-2 rounded-md hover:bg-accent transition-colors",
+              isActive ? "bg-accent/50 text-foreground font-medium" : "text-muted-foreground"
             )}
-            variant="ghost"
-            type="button"
+            onClick={() => console.log(`Clicked on ${item.label}`)}
           >
             {item.label}
-          </Button>
+          </NavLink>
         ))}
       </nav>
 
@@ -113,18 +99,20 @@ export function AppHeader() {
           >
             <nav className="flex flex-col p-4">
               {navItems.map((item) => (
-                <Button
+                <NavLink
                   key={item.label}
-                  onClick={() => handleNavigation(item.href)}
-                  className={cn(
-                    "py-3 px-4 text-left hover:bg-accent rounded-md justify-start w-full",
-                    location.pathname === item.href && "bg-accent/50"
+                  to={item.href}
+                  className={({ isActive }) => cn(
+                    "py-3 px-4 text-left hover:bg-accent rounded-md w-full block",
+                    isActive ? "bg-accent/50" : ""
                   )}
-                  variant="ghost"
-                  type="button"
+                  onClick={() => {
+                    console.log(`Mobile clicked on ${item.label}`);
+                    setMenuOpen(false);
+                  }}
                 >
                   {item.label}
-                </Button>
+                </NavLink>
               ))}
             </nav>
           </motion.div>
