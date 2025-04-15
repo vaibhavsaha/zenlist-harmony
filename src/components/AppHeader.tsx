@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { useTheme } from '@/hooks/useTheme';
 import { cn } from '@/lib/utils';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 interface NavItem {
   label: string;
@@ -21,6 +21,8 @@ const navItems: NavItem[] = [
 export function AppHeader() {
   const { theme, setTheme } = useTheme();
   const [menuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const toggleTheme = () => {
     setTheme(theme === 'dark' ? 'light' : 'dark');
@@ -28,6 +30,11 @@ export function AppHeader() {
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
+  };
+
+  const handleNavigation = (href: string) => {
+    navigate(href);
+    setMenuOpen(false);
   };
 
   return (
@@ -41,13 +48,16 @@ export function AppHeader() {
       {/* Desktop navigation */}
       <nav className="hidden md:flex items-center space-x-6">
         {navItems.map((item) => (
-          <Link
+          <button
             key={item.label}
-            to={item.href}
-            className="text-muted-foreground hover:text-foreground transition-colors"
+            onClick={() => handleNavigation(item.href)}
+            className={cn(
+              "text-muted-foreground hover:text-foreground transition-colors",
+              location.pathname === item.href && "text-foreground font-medium"
+            )}
           >
             {item.label}
-          </Link>
+          </button>
         ))}
       </nav>
 
@@ -82,14 +92,16 @@ export function AppHeader() {
           >
             <nav className="flex flex-col p-4">
               {navItems.map((item) => (
-                <Link
+                <button
                   key={item.label}
-                  to={item.href}
-                  className="py-3 px-4 hover:bg-accent rounded-md"
-                  onClick={() => setMenuOpen(false)}
+                  onClick={() => handleNavigation(item.href)}
+                  className={cn(
+                    "py-3 px-4 text-left hover:bg-accent rounded-md",
+                    location.pathname === item.href && "bg-accent/50"
+                  )}
                 >
                   {item.label}
-                </Link>
+                </button>
               ))}
             </nav>
           </motion.div>
