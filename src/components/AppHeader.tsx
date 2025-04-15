@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { useTheme } from '@/hooks/useTheme';
 import { cn } from '@/lib/utils';
 import { motion, AnimatePresence } from 'framer-motion';
-import { NavLink, useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 interface NavItem {
   label: string;
@@ -24,6 +24,7 @@ export function AppHeader() {
   const location = useLocation();
 
   const toggleTheme = () => {
+    console.log('Toggling theme');
     setTheme(theme === 'dark' ? 'light' : 'dark');
   };
 
@@ -54,17 +55,19 @@ export function AppHeader() {
       {/* Desktop navigation */}
       <nav className="hidden md:flex items-center space-x-6">
         {navItems.map((item) => (
-          <NavLink
+          <Link
             key={item.label}
             to={item.href}
-            className={({ isActive }) => cn(
-              "px-4 py-2 rounded-md hover:bg-accent transition-colors",
-              isActive ? "bg-accent/50 text-foreground font-medium" : "text-muted-foreground"
+            className={cn(
+              "px-4 py-2 rounded-md hover:bg-accent transition-colors cursor-pointer",
+              location.pathname === item.href 
+                ? "bg-accent/50 text-foreground font-medium" 
+                : "text-muted-foreground"
             )}
             onClick={() => console.log(`Clicked on ${item.label}`)}
           >
             {item.label}
-          </NavLink>
+          </Link>
         ))}
       </nav>
 
@@ -73,7 +76,8 @@ export function AppHeader() {
           variant="ghost"
           size="icon"
           onClick={toggleTheme}
-          className="rounded-full w-9 h-9"
+          className="rounded-full w-9 h-9 cursor-pointer"
+          type="button"
         >
           {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
         </Button>
@@ -82,7 +86,8 @@ export function AppHeader() {
           variant="ghost"
           size="icon"
           onClick={toggleMenu}
-          className="rounded-full w-9 h-9 md:hidden"
+          className="rounded-full w-9 h-9 md:hidden cursor-pointer"
+          type="button"
         >
           {menuOpen ? <X size={18} /> : <Menu size={18} />}
         </Button>
@@ -99,12 +104,12 @@ export function AppHeader() {
           >
             <nav className="flex flex-col p-4">
               {navItems.map((item) => (
-                <NavLink
+                <Link
                   key={item.label}
                   to={item.href}
-                  className={({ isActive }) => cn(
-                    "py-3 px-4 text-left hover:bg-accent rounded-md w-full block",
-                    isActive ? "bg-accent/50" : ""
+                  className={cn(
+                    "py-3 px-4 text-left hover:bg-accent rounded-md w-full block cursor-pointer",
+                    location.pathname === item.href ? "bg-accent/50" : ""
                   )}
                   onClick={() => {
                     console.log(`Mobile clicked on ${item.label}`);
@@ -112,7 +117,7 @@ export function AppHeader() {
                   }}
                 >
                   {item.label}
-                </NavLink>
+                </Link>
               ))}
             </nav>
           </motion.div>
