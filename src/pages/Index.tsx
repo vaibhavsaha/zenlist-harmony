@@ -83,10 +83,25 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col japanese-paper">
+    <div className="min-h-screen flex flex-col japanese-paper relative">
+      <div className="absolute inset-0 w-full h-full overflow-hidden z-0">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="w-full h-full object-cover opacity-20"
+        >
+          <source 
+            src="https://v3.fal.media/files/monkey/taPN9IlaITCK0BSr1rXe3_output.mp4" 
+            type="video/mp4" 
+          />
+        </video>
+      </div>
+      
       <AppHeader />
       
-      <main className="flex-1 container max-w-2xl py-10 px-6 mx-0">
+      <main className="flex-1 container max-w-2xl py-10 px-6 mx-0 relative z-10">
         <h1 className="text-2xl font-jp font-medium mb-6 brush-stroke-bg animate-float">Today's Tasks</h1>
         
         <AddTaskForm onAddTask={handleAddTask} categories={categories} />
