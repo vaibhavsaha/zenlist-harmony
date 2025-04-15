@@ -118,7 +118,7 @@ const Auth = () => {
           <div className="space-y-4">
             <Button
               type="submit"
-              className="w-full"
+              className="w-full hover:scale-105 transition-all duration-300 ease-in-out hover:shadow-sm"
               disabled={loading}
             >
               Sign In
@@ -127,7 +127,7 @@ const Auth = () => {
               type="button"
               variant="outline"
               onClick={handleSignUp}
-              className="w-full"
+              className="w-full hover:scale-105 transition-all duration-300 ease-in-out hover:shadow-sm"
               disabled={loading}
             >
               Sign Up
@@ -146,7 +146,7 @@ const Auth = () => {
               type="button"
               variant="outline"
               onClick={handleGoogleSignIn}
-              className="w-full"
+              className="w-full hover:scale-105 transition-all duration-300 ease-in-out hover:shadow-sm"
               disabled={loading}
             >
               <svg className="mr-2 h-4 w-4" viewBox="0 0 24 24">
