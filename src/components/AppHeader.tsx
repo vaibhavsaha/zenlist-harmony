@@ -59,10 +59,11 @@ export function AppHeader() {
             key={item.label}
             to={item.href}
             className={cn(
-              "px-4 py-2 rounded-md hover:bg-accent transition-colors cursor-pointer",
+              "px-4 py-2 rounded-md transition-all duration-300 ease-in-out cursor-pointer",
               location.pathname === item.href 
                 ? "bg-accent/50 text-foreground font-medium" 
-                : "text-muted-foreground"
+                : "text-muted-foreground hover:bg-accent/20 hover:text-foreground hover:scale-105 hover:shadow-sm",
+              "transform hover:translate-y-[-2px]" // Subtle lift effect
             )}
             onClick={() => console.log(`Clicked on ${item.label}`)}
           >
@@ -76,7 +77,7 @@ export function AppHeader() {
           variant="ghost"
           size="icon"
           onClick={toggleTheme}
-          className="rounded-full w-9 h-9 cursor-pointer"
+          className="rounded-full w-9 h-9 cursor-pointer hover:bg-accent/20 hover:scale-110 transition-all duration-300"
           type="button"
         >
           {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
@@ -86,7 +87,7 @@ export function AppHeader() {
           variant="ghost"
           size="icon"
           onClick={toggleMenu}
-          className="rounded-full w-9 h-9 md:hidden cursor-pointer"
+          className="rounded-full w-9 h-9 md:hidden cursor-pointer hover:bg-accent/20 hover:scale-110 transition-all duration-300"
           type="button"
         >
           {menuOpen ? <X size={18} /> : <Menu size={18} />}
@@ -108,8 +109,9 @@ export function AppHeader() {
                   key={item.label}
                   to={item.href}
                   className={cn(
-                    "py-3 px-4 text-left hover:bg-accent rounded-md w-full block cursor-pointer",
-                    location.pathname === item.href ? "bg-accent/50" : ""
+                    "py-3 px-4 text-left hover:bg-accent/20 rounded-md w-full block cursor-pointer transition-all duration-300 ease-in-out",
+                    location.pathname === item.href ? "bg-accent/50" : "",
+                    "hover:translate-x-2" // Subtle slide effect for mobile
                   )}
                   onClick={() => {
                     console.log(`Mobile clicked on ${item.label}`);
