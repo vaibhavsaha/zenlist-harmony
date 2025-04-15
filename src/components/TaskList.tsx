@@ -50,15 +50,13 @@ export function TaskList({ tasks, setTasks, filter }: TaskListProps) {
               boxShadow: "0 5px 15px rgba(0,0,0,0.05)" 
             }}
           >
-            {(provided) => (
-              <TaskItem 
-                task={task} 
-                onComplete={handleComplete} 
-                onDelete={handleDelete}
-                isDragging={false}
-                dragHandleProps={provided.dragControls}
-              />
-            )}
+            <TaskItem 
+              task={task} 
+              onComplete={handleComplete} 
+              onDelete={handleDelete}
+              isDragging={false}
+              dragHandleProps={(provided: any) => provided.dragControls}
+            />
           </Reorder.Item>
         ))}
       </AnimatePresence>
