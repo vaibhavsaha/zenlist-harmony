@@ -81,7 +81,7 @@ export function AppHeader() {
             variant="ghost"
             size="icon"
             onClick={() => signOut()}
-            className="rounded-full w-9 h-9 cursor-pointer hover:bg-accent/20 hover:scale-110 transition-all duration-300"
+            className="rounded-full w-9 h-9 cursor-pointer hover:bg-accent/20 hover:scale-110 transition-all duration-300 ease-in-out hover:shadow-md"
             type="button"
           >
             <UserCircle size={18} />
@@ -90,7 +90,7 @@ export function AppHeader() {
           <Button
             variant="ghost"
             onClick={() => navigate('/auth')}
-            className="rounded-md cursor-pointer hover:bg-accent/20 transition-all duration-300"
+            className="rounded-md cursor-pointer hover:bg-accent/20 hover:scale-105 transition-all duration-300 ease-in-out hover:shadow-sm transform origin-center"
             type="button"
           >
             Sign In
