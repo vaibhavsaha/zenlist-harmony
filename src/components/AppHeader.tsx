@@ -1,11 +1,17 @@
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Moon, Sun, Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useTheme } from '@/hooks/useTheme';
 import { cn } from '@/lib/utils';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 
 interface NavItem {
   label: string;
@@ -38,6 +44,18 @@ export function AppHeader() {
     setMenuOpen(false);
   };
 
+  // Close mobile menu when window is resized to desktop size
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768 && menuOpen) {
+        setMenuOpen(false);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [menuOpen]);
+
   return (
     <header className="py-6 px-4 sm:px-6 flex justify-between items-center border-b border-border/40">
       <div className="flex items-center">
@@ -49,17 +67,18 @@ export function AppHeader() {
       {/* Desktop navigation */}
       <nav className="hidden md:flex items-center space-x-6">
         {navItems.map((item) => (
-          <button
+          <Button
             key={item.label}
             onClick={() => handleNavigation(item.href)}
             className={cn(
               "text-muted-foreground hover:text-foreground transition-colors",
               location.pathname === item.href && "text-foreground font-medium"
             )}
+            variant="ghost"
             type="button"
           >
             {item.label}
-          </button>
+          </Button>
         ))}
       </nav>
 
@@ -94,17 +113,18 @@ export function AppHeader() {
           >
             <nav className="flex flex-col p-4">
               {navItems.map((item) => (
-                <button
+                <Button
                   key={item.label}
                   onClick={() => handleNavigation(item.href)}
                   className={cn(
-                    "py-3 px-4 text-left hover:bg-accent rounded-md",
+                    "py-3 px-4 text-left hover:bg-accent rounded-md justify-start w-full",
                     location.pathname === item.href && "bg-accent/50"
                   )}
+                  variant="ghost"
                   type="button"
                 >
                   {item.label}
-                </button>
+                </Button>
               ))}
             </nav>
           </motion.div>
