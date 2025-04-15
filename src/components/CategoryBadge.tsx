@@ -15,11 +15,11 @@ interface CategoryBadgeProps {
 
 export function CategoryBadge({ category, minimal = false, className }: CategoryBadgeProps) {
   const colorMap: Record<string, string> = {
-    indigo: 'bg-indigo/90',
-    vermilion: 'bg-vermilion/90',
-    moss: 'bg-moss/90',
-    gray: 'bg-gray-400/90',
-    default: 'bg-muted/90',
+    indigo: 'bg-indigo/90 hover:bg-indigo',
+    vermilion: 'bg-vermilion/90 hover:bg-vermilion',
+    moss: 'bg-moss/90 hover:bg-moss',
+    gray: 'bg-gray-400/90 hover:bg-gray-400',
+    default: 'bg-muted/90 hover:bg-muted'
   };
 
   const bgColor = colorMap[category.color] || colorMap.default;
@@ -38,12 +38,12 @@ export function CategoryBadge({ category, minimal = false, className }: Category
       initial={{ opacity: 0, scale: 0.9 }}
       animate={{ opacity: 1, scale: 1 }}
       className={cn(
-        "px-2 py-0.5 text-xs rounded-full flex items-center", 
+        "px-2 py-0.5 text-xs rounded-full flex items-center transition-colors duration-200", 
         bgColor, 
         className
       )}
     >
-      <span className="text-white">{category.name}</span>
+      <span className="text-foreground/90">{category.name}</span>
     </motion.div>
   );
 }

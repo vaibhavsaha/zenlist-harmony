@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -53,17 +52,21 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
+				// Updated colors with pastel shades
 				indigo: {
 					DEFAULT: 'hsl(var(--indigo))',
-					foreground: 'hsl(var(--indigo-foreground))'
+					foreground: 'hsl(var(--indigo-foreground))',
+					soft: '#E5DEFF'
 				},
 				vermilion: {
 					DEFAULT: 'hsl(var(--vermilion))',
-					foreground: 'hsl(var(--vermilion-foreground))'
+					foreground: 'hsl(var(--vermilion-foreground))',
+					soft: '#FFDEE2'
 				},
 				moss: {
 					DEFAULT: 'hsl(var(--moss))',
-					foreground: 'hsl(var(--moss-foreground))'
+					foreground: 'hsl(var(--moss-foreground))',
+					soft: '#F2FCE2'
 				},
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
