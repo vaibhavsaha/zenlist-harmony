@@ -1,11 +1,12 @@
-
 import { useState, useEffect } from 'react';
 import { Moon, Sun, Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useTheme } from '@/hooks/useTheme';
 import { cn } from '@/lib/utils';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useAuth } from '@/hooks/useAuth';
+import { UserCircle } from 'lucide-react';
 
 interface NavItem {
   label: string;
@@ -22,6 +23,8 @@ export function AppHeader() {
   const { theme, setTheme } = useTheme();
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
+  const { user, signOut } = useAuth();
+  const navigate = useNavigate();
 
   const toggleTheme = () => {
     console.log('Toggling theme');
@@ -73,6 +76,26 @@ export function AppHeader() {
       </nav>
 
       <div className="flex items-center space-x-2">
+        {user ? (
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => signOut()}
+            className="rounded-full w-9 h-9 cursor-pointer hover:bg-accent/20 hover:scale-110 transition-all duration-300"
+            type="button"
+          >
+            <UserCircle size={18} />
+          </Button>
+        ) : (
+          <Button
+            variant="ghost"
+            onClick={() => navigate('/auth')}
+            className="rounded-md cursor-pointer hover:bg-accent/20 transition-all duration-300"
+            type="button"
+          >
+            Sign In
+          </Button>
+        )}
         <Button
           variant="ghost"
           size="icon"
