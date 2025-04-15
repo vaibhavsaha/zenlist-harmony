@@ -33,6 +33,7 @@ export function AppHeader() {
   };
 
   const handleNavigation = (href: string) => {
+    console.log('Navigating to:', href);
     navigate(href);
     setMenuOpen(false);
   };
@@ -55,6 +56,7 @@ export function AppHeader() {
               "text-muted-foreground hover:text-foreground transition-colors",
               location.pathname === item.href && "text-foreground font-medium"
             )}
+            type="button"
           >
             {item.label}
           </button>
@@ -99,6 +101,7 @@ export function AppHeader() {
                     "py-3 px-4 text-left hover:bg-accent rounded-md",
                     location.pathname === item.href && "bg-accent/50"
                   )}
+                  type="button"
                 >
                   {item.label}
                 </button>
