@@ -1,11 +1,10 @@
-
 import React, { useState, useEffect } from 'react';
 import { AddTaskForm } from '@/components/AddTaskForm';
 import { TaskList } from '@/components/TaskList';
 import { FilterControls } from '@/components/FilterControls';
 import { AppHeader } from '@/components/AppHeader';
 import { TaskInterface, CategoryInterface } from '@/types/task';
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from 'uuid';  // This import will now work
 import { toast } from '@/components/ui/use-toast';
 
 // Initial categories data
