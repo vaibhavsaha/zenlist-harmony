@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { Moon, Sun, Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -7,6 +8,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { UserCircle } from 'lucide-react';
+import { toast } from '@/components/ui/use-toast';
 
 interface NavItem {
   label: string;
@@ -33,6 +35,24 @@ export function AppHeader() {
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
+  };
+
+  const handleSignOut = async () => {
+    try {
+      await signOut();
+      toast({
+        title: "Success",
+        description: "You have been signed out",
+      });
+      navigate('/auth');
+    } catch (error) {
+      console.error('Error signing out:', error);
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Failed to sign out",
+      });
+    }
   };
 
   // Close mobile menu when window is resized to desktop size
@@ -80,7 +100,7 @@ export function AppHeader() {
           <Button
             variant="ghost"
             size="icon"
-            onClick={() => signOut()}
+            onClick={handleSignOut}
             className="rounded-full w-9 h-9 cursor-pointer hover:bg-accent/20 hover:scale-110 transition-all duration-300 ease-in-out hover:shadow-md"
             type="button"
           >
