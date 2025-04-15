@@ -82,10 +82,10 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col japanese-paper zen-bg">
+    <div className="min-h-screen flex flex-col japanese-paper">
       <AppHeader />
       
-      <main className="flex-1 container max-w-3xl py-10 px-4 sm:px-6 mx-auto">
+      <main className="flex-1 container max-w-4xl py-10 px-6 mx-0">
         <h1 className="text-2xl font-jp font-medium mb-6 brush-stroke-bg animate-float">Today's Tasks</h1>
         
         <AddTaskForm onAddTask={handleAddTask} categories={categories} />
@@ -103,7 +103,7 @@ const Index = () => {
         />
         
         {tasks.length === 0 && (
-          <div className="text-center py-16">
+          <div className="text-left py-16">
             <p className="text-muted-foreground/80 italic">Your task list is empty. Add a new task to get started.</p>
           </div>
         )}
@@ -113,3 +113,4 @@ const Index = () => {
 };
 
 export default Index;
+
