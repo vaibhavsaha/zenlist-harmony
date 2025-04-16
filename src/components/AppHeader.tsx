@@ -107,9 +107,17 @@ export function AppHeader() {
               <Button
                 variant="ghost"
                 size="icon"
-                className="rounded-full w-9 h-9 cursor-pointer hover:bg-accent/20 hover:scale-110 transition-all duration-300 ease-in-out hover:shadow-md"
+                className={cn(
+                  "rounded-full w-9 h-9 cursor-pointer transition-all duration-300 ease-in-out",
+                  "hover:bg-accent/20 hover:scale-110 hover:shadow-md", // Existing hover effects
+                  "hover:ring-2 hover:ring-primary/20 hover:ring-offset-2", // New subtle ring effect
+                  "group" // Add group for potential child element hover effects
+                )}
               >
-                <UserCircle size={18} />
+                <UserCircle 
+                  size={18} 
+                  className="transition-transform duration-300 group-hover:rotate-6" // Gentle rotation on hover
+                />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-56">
@@ -136,6 +144,7 @@ export function AppHeader() {
             Sign In
           </Button>
         )}
+
         <Button
           variant="ghost"
           size="icon"
