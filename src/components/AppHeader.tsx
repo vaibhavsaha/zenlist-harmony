@@ -108,15 +108,15 @@ export function AppHeader() {
                 variant="ghost"
                 size="icon"
                 className={cn(
-                  "rounded-full w-9 h-9 cursor-pointer transition-all duration-300 ease-in-out",
-                  "hover:bg-accent/20 hover:scale-110 hover:shadow-md", // Existing hover effects
-                  "hover:ring-2 hover:ring-primary/20 hover:ring-offset-2", // New subtle ring effect
-                  "group" // Add group for potential child element hover effects
+                  "rounded-full w-9 h-9 cursor-pointer transition-all duration-300 ease-in-out group",
+                  "hover:bg-accent/20 hover:scale-110 hover:shadow-md", 
+                  "hover:ring-2 hover:ring-primary/20 hover:ring-offset-2", // Subtle ring effect
+                  "transform hover:rotate-3" // Gentle rotation on hover
                 )}
               >
                 <UserCircle 
                   size={18} 
-                  className="transition-transform duration-300 group-hover:rotate-6" // Gentle rotation on hover
+                  className="transition-transform duration-300 group-hover:scale-110" // Gentle scale effect on icon itself
                 />
               </Button>
             </DropdownMenuTrigger>
