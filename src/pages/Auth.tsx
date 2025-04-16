@@ -10,9 +10,18 @@ const Auth = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const [isInIframe, setIsInIframe] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
+    // Check if the app is running in an iframe
+    try {
+      setIsInIframe(window.self !== window.top);
+    } catch (e) {
+      // If security error occurs when accessing window.top, we're in an iframe
+      setIsInIframe(true);
+    }
+
     const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
       if (session) {
         navigate('/');
@@ -73,20 +82,38 @@ const Auth = () => {
 
   const handleGoogleSignIn = async () => {
     try {
-      const { error } = await supabase.auth.signInWithOAuth({
-        provider: 'google',
-        options: {
-          redirectTo: window.location.origin,
-        }
-      });
-
-      if (error) {
-        console.error('Google sign-in error:', error);
-        toast({
-          variant: "destructive",
-          title: "Error",
-          description: error.message,
+      if (isInIframe) {
+        // When in iframe (Lovable editor UI), open in a new tab
+        const { data } = await supabase.auth.signInWithOAuth({
+          provider: 'google',
+          options: {
+            redirectTo: window.location.origin,
+            skipBrowserRedirect: true,
+          }
         });
+
+        if (data?.url) {
+          window.open(data.url, '_blank');
+        } else {
+          throw new Error('No redirect URL returned');
+        }
+      } else {
+        // Normal flow for standalone window
+        const { error } = await supabase.auth.signInWithOAuth({
+          provider: 'google',
+          options: {
+            redirectTo: window.location.origin,
+          }
+        });
+
+        if (error) {
+          console.error('Google sign-in error:', error);
+          toast({
+            variant: "destructive",
+            title: "Error",
+            description: error.message,
+          });
+        }
       }
     } catch (err) {
       console.error('Exception during Google sign-in:', err);
@@ -178,6 +205,7 @@ const Auth = () => {
                 />
               </svg>
               Continue with Google
+              {isInIframe && <span className="ml-1 text-xs">(Opens in new tab)</span>}
             </Button>
           </div>
         </form>
